@@ -3,3 +3,5 @@ __pycache__/
 *.__pyc
 .pytest_cache/
 .env
+.ruff_cache
+raw
