@@ -1,4 +1,6 @@
-from constants import RETRYABLE_EXCEPTIONS
+import requests
+
+from exceptions import RetryableError
 from extract import fetch_user, save_raw_data
 
 
@@ -7,7 +9,7 @@ def main():
         user = "torvalds"
         data = fetch_user(user)
         save_raw_data(data, user)
-    except RETRYABLE_EXCEPTIONS as e:
+    except (requests.exceptions.RequestException, RetryableError) as e:
         print(e)
 
 
