@@ -1,25 +1,19 @@
 from pathlib import Path
 
-import requests
-
 from config import GITHUB_BASE_URL
+from constants import RETRYABLE_EXCEPTIONS
 from decorators import retry
-from utils import get_headers, get_request, save_to_json
-from exceptions import RetryableError
+from utils import get_headers, get_json, save_to_json
 
 
 @retry(
     attempts=3,
-    exceptions=(
-        RetryableError,
-        requests.exceptions.ConnectTimeout,
-        requests.exceptions.Timeout,
-    ),
+    exceptions=RETRYABLE_EXCEPTIONS,
 )
-def get_json(user):
+def fetch_user(user):
     url = f"{GITHUB_BASE_URL}/users/{user}/repos"
     headers = get_headers()
-    data = get_request(url, headers)
+    data = get_json(url, headers)
     return data
 
 

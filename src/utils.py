@@ -18,10 +18,10 @@ def get_headers():
     return headers
 
 
-def get_request(url, headers):
+def get_json(url, headers):
     response = requests.get(url, headers=headers, timeout=TIMEOUT)
     if response.status_code in RETRYABLE_STATUS_CODE:
-        raise RetryableError(f"Transient Error : Retrying")
+        raise RetryableError("Transient Error : Retrying")
     response.raise_for_status()
     return response.json()
 
