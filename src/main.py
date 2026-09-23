@@ -1,13 +1,12 @@
-from modules.extract import fetchRepos, saveReposForUser
+import requests
+
+from extract import get_json, save_raw_data
 
 
 def main():
-    try:
-        user = "torvalds"
-        data = fetchRepos(user)
-        saveReposForUser(data, user)
-    except Exception as e:
-        print(e)
+    user = "torvalds"
+    data = get_json(user)
+    save_raw_data(data, user)
 
 
 if __name__ == "__main__":

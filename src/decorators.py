@@ -1,3 +1,4 @@
+import time
 from functools import wraps
 
 
@@ -13,6 +14,7 @@ def retry(attempts=1, exceptions=(), delay=1, backoff=1):
                 except exceptions:
                     if attempt == attempts:
                         raise
+                    time.sleep(current_delay)
                     current_delay *= backoff
 
         return wrapper
